@@ -5,6 +5,7 @@ export default defineConfig(async () => {
     application: {},
     vite: {
       server: {
+        // host: 'myapp.test', // 绑定域名
         proxy: {
           '/api': {
             changeOrigin: true,
