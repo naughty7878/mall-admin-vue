@@ -1,0 +1,8 @@
+node_modules
+dist
+.git
+.idea
+.husky
+.env.local
+.env.*.local
+*.log
