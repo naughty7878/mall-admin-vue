@@ -23,6 +23,16 @@ const USER: AppRouteRecordRaw = {
       },
     },
     {
+      path: 'authentication',
+      name: 'AuthenticationInfo',
+      component: () => import('@/views/user/authentication/index.vue'),
+      meta: {
+        locale: 'menu.user.authentication',
+        requiresAuth: true,
+        roles: ['*'],
+      },
+    },
+    {
       path: 'setting',
       name: 'Setting',
       component: () => import('@/views/user/setting/index.vue'),

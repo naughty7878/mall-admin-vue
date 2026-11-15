@@ -2,6 +2,23 @@
   <h1>Arco Design Pro</h1>
 </div>
 
+## 商城网关和 Keycloak 接入
+
+前端使用 Keycloak 的授权码和 PKCE 登录，Token 保存在适配器内存中，请求网关前会检查并刷新 Token。开发配置在 `.env.development`：
+
+```dotenv
+VITE_API_BASE_URL=http://localhost:8888
+VITE_KEYCLOAK_URL=http://192.168.1.181:30530
+VITE_KEYCLOAK_REALM=mall
+VITE_KEYCLOAK_CLIENT_ID=mall-admin-web
+```
+
+生产环境必须在构建时通过环境变量或 `.env.production.local` 配置浏览器可访问的网关和 Keycloak 地址；Vite 将这些值写入静态构建产物。Keycloak 客户端应为公开客户端，开启标准流程与 PKCE S256，配置前端的重定向 URI、注销后重定向 URI 和 Web Origins，并将 `mall-gateway-audience` 添加为默认客户端作用域。前端不得配置客户端密钥。开发时需使用 `localhost` 或 HTTPS 等安全上下文以使用 PKCE。
+
+登录后打开“网关管理 → 服务列表”，点击刷新会通过 `/openapi/execute` 调用 `admin.route.server.list`；网关中必须已配置该 API，且能访问 `mall-admin`。现有模板 mock 已禁用，其余 `/api/...` 示例页面尚未接入商城后端。前端角色来自 Token 的 realm 或 `mall-admin-web` 客户端角色，缺少 `admin` 时按普通用户显示；菜单控制不能替代后端授权。目前网关尚未实现 API 级授权。
+
+启动开发服务：`pnpm install`，然后 `pnpm dev`。确保浏览器能访问 Keycloak 和网关，且两者均允许前端来源跨域。网关和业务服务的地址及路由配置应按实际部署环境设置。
+
 <div align="center">
 
 基于 [Arco Design](https://arco.design/) Vue 组件库的开箱即用的中后台前端解决方案。

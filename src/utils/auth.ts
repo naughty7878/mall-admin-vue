@@ -1,19 +1,6 @@
-const TOKEN_KEY = 'token';
+import keycloak from './keycloak';
 
-const isLogin = () => {
-  return !!localStorage.getItem(TOKEN_KEY);
-};
+const isLogin = () => !!keycloak.authenticated;
 
-const getToken = () => {
-  return localStorage.getItem(TOKEN_KEY);
-};
-
-const setToken = (token: string) => {
-  localStorage.setItem(TOKEN_KEY, token);
-};
-
-const clearToken = () => {
-  localStorage.removeItem(TOKEN_KEY);
-};
-
-export { isLogin, getToken, setToken, clearToken };
+export { isLogin };
+export default isLogin;

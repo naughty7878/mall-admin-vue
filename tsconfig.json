@@ -10,7 +10,8 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "keycloak-js": ["node_modules/keycloak-js/lib/keycloak.d.ts"]
     },
     "lib": ["es2020", "dom"],
     "skipLibCheck": true
